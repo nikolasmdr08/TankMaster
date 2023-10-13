@@ -51,12 +51,15 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerShoot(InputAction.CallbackContext callbackContext)
     {
-        Debug.Log(callbackContext);
         if (callbackContext.performed)
         {
-            Debug.Log("Disparo");
             AnimationController(_animatorCannon, "isShooting", true);
         }
         
+    }
+
+    public void EndAnimationShoot()
+    {
+        AnimationController(_animatorCannon, "isShooting", false); ;
     }
 }
