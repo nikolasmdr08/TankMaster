@@ -25,7 +25,7 @@ public class TurretController : MonoBehaviour
 
     public void InstantiateBullet()
     {
-        Instantiate(_prefabBullet, _firePoint.position, transform.rotation); // Usar la rotación actual de la torreta
+        Instantiate(_prefabBullet, _firePoint.position, transform.rotation); 
     }
 
     private void RotateToMouse() { 
