@@ -11,11 +11,16 @@ public class PlayerController : MonoBehaviour
     private Vector2 _input;
     private Animator _animator;
     private Animator _animatorCannon;
+    private LifeManager _lifePlayer;
+
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private bool _isMoving;
     [SerializeField] private GameObject _cannon;
+    [SerializeField] private GameObject _DeathPrefab;
+    [SerializeField] private int _maxLifePlayer;
+    [SerializeField] private GameObject _bulletExplode;
 
     void Start()
     {
@@ -23,14 +28,27 @@ public class PlayerController : MonoBehaviour
         _pInput = GetComponent<PlayerInput>();
         _animator = GetComponent<Animator>();
         _animatorCannon = _cannon.GetComponent<Animator>();
+        _lifePlayer = new LifeManager();
+        _lifePlayer.SetMaxLife(_maxLifePlayer); 
+        _lifePlayer.SetCurrentLife(_maxLifePlayer); 
     }
 
     void Update()
     {
+        if(_lifePlayer.GetCurrentLife() <= 0)
+        {
+            Death();
+        }
         _input = _pInput.actions["Move"].ReadValue<Vector2>();
         PlayerMove(_input);
         _isMoving = (_input.magnitude > 0);
         AnimationController(_animator, "isMoving", _isMoving);
+    }
+
+    private void Death()
+    {
+        Instantiate(_DeathPrefab,transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void AnimationController(Animator animation,string id, bool isMoving)
@@ -60,6 +78,18 @@ public class PlayerController : MonoBehaviour
 
     public void EndAnimationShoot()
     {
-        AnimationController(_animatorCannon, "isShooting", false); ;
+        AnimationController(_animatorCannon, "isShooting", false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            int _damage = collision.gameObject.GetComponent<CommonBullet>().GetDamage();
+            _lifePlayer.SubtractLife(_damage);
+            Instantiate(_bulletExplode,transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+        }
+        
     }
 }

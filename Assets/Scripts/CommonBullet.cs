@@ -8,20 +8,26 @@ public class CommonBullet : MonoBehaviour
     private GameObject _playerController;
     private Transform _playerPosition;
     private Vector2 _direction;
-    private float _speed;
 
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private string _target;
+    [SerializeField] private int _damage;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _playerController = GameObject.FindGameObjectWithTag("Player");
+        _playerController = GameObject.FindGameObjectWithTag(_target);
         _playerPosition = _playerController.transform;
-        _direction = transform.position - _playerPosition.position;
+        _direction = _playerPosition.position - transform.position;
     }
 
     void Update()
     {
         _rb.velocity = _direction.normalized * _moveSpeed;
+    }
+
+    public int GetDamage()
+    {
+        return _damage;
     }
 }
