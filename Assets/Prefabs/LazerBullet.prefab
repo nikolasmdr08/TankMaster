@@ -103,6 +103,7 @@ MonoBehaviour:
   _moveSpeed: 2
   _target: Player
   _damage: 3
+  _bulletExplode: {fileID: 233885430918196183, guid: 193b3eb0d162a224282e3eb494e42a1a, type: 3}
 --- !u!114 &3982506343070563423
 MonoBehaviour:
   m_ObjectHideFlags: 0

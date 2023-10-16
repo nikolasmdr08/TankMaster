@@ -18,8 +18,9 @@ public class TankEnemyController : MonoBehaviour
     private GameObject _playerGameObject;
     private Transform _player;
     private Vector2 _patrolTarget;
-    private LifeManager _lifePoints;
-    [SerializeField] private int _maxLifePlayer;
+    private LifeManager _life;
+    [SerializeField] private int _maxLife;
+    [SerializeField] private GameObject _DeathPrefab;
 
     void Start()
     {
@@ -27,35 +28,44 @@ public class TankEnemyController : MonoBehaviour
         GetNewPatrolTarget();
         _playerGameObject = GameObject.FindGameObjectWithTag("Player");
         _player = _playerGameObject.transform;
-        _lifePoints = new LifeManager();
-        _lifePoints.SetMaxLife(_maxLifePlayer);
+        _life = new LifeManager();
+        _life.SetMaxLife(_maxLife);
+        _life.SetCurrentLife(_maxLife);
     }
 
     void Update()
     {
-        switch (_currentState)
+        Debug.Log("enemyActualLife: " + _life.GetCurrentLife());
+        if (_life.GetCurrentLife() < 0)
         {
-            case TankState.Patrolling:
-                Patrol();
-                if (_playerGameObject != null && Vector3.Distance(transform.position, _player.position) < _detectionDistance)
-                {
-                    _player = _playerGameObject.transform;
-                    _currentState = TankState.FollowingPlayer;
-                }
-                break;
-            case TankState.FollowingPlayer:
-                if (_player != null && Vector3.Distance(transform.position, _player.position) > _shootDistance)
-                {
-                    FollowPlayer();
-                }
-                if (_player != null && Vector3.Distance(transform.position, _player.position) >= _detectionDistance)
-                {
+            Death();
+        }
+        else
+        {
+            switch (_currentState)
+            {
+                case TankState.Patrolling:
+                    Patrol();
+                    if (_playerGameObject != null && Vector3.Distance(transform.position, _player.position) < _detectionDistance)
+                    {
+                        _player = _playerGameObject.transform;
+                        _currentState = TankState.FollowingPlayer;
+                    }
+                    break;
+                case TankState.FollowingPlayer:
+                    if (_player != null && Vector3.Distance(transform.position, _player.position) > _shootDistance)
+                    {
+                        FollowPlayer();
+                    }
+                    if (_player != null && Vector3.Distance(transform.position, _player.position) >= _detectionDistance)
+                    {
 
-                    _currentState = TankState.Patrolling;
-                    GetNewPatrolTarget();
+                        _currentState = TankState.Patrolling;
+                        GetNewPatrolTarget();
 
-                }
-                break;
+                    }
+                    break;
+            }
         }
     }
 
@@ -108,13 +118,15 @@ public class TankEnemyController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, Time.deltaTime * _followSpeed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void GetDamage(int damage)
     {
-        if(collision.gameObject.tag == "PlayerBullet")
-        {
-            _lifePoints.SubtractLife(1);
-        }
+        _life.SubtractLife(damage);
     }
 
+    private void Death()
+    {
+        Instantiate(_DeathPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }
 

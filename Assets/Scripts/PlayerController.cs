@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(_lifePlayer.GetCurrentLife() <= 0)
+        if(_lifePlayer.GetCurrentLife() < 0)
         {
             Death();
         }
@@ -81,15 +81,8 @@ public class PlayerController : MonoBehaviour
         AnimationController(_animatorCannon, "isShooting", false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void GetDamage(int damage)
     {
-        if (collision.gameObject.tag == "EnemyBullet")
-        {
-            int _damage = collision.gameObject.GetComponent<CommonBullet>().GetDamage();
-            _lifePlayer.SubtractLife(_damage);
-            Instantiate(_bulletExplode,transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
-        }
-        
+        _lifePlayer.SubtractLife(damage);
     }
 }
