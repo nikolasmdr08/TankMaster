@@ -27,7 +27,6 @@ public class LifeManager : MonoBehaviour
         if (currentLife < 0){
             currentLife = 0;
         }
-        Debug.Log("Life subtracted. Current life: " + currentLife);
     }
 
     public int GetCurrentLife()

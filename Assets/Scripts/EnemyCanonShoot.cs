@@ -46,7 +46,10 @@ public class EnemyCannonController : MonoBehaviour
 
     public void InstantiateBullet()
     {
-        Instantiate(_prefabBullet, _firePoint.position, Quaternion.Euler(0, 0, -90));
+        if (_playerController != null)
+        {
+            Instantiate(_prefabBullet, _firePoint.position, _firePoint.rotation);
+        }
     }
 
 
@@ -66,7 +69,7 @@ public class EnemyCannonController : MonoBehaviour
         Vector3 _directionToPlayer = (_playerController.transform.position - transform.position).normalized;
         Debug.DrawRay(transform.position, _directionToPlayer * _rayLength, Color.blue);
         RaycastHit2D _hit = Physics2D.Raycast(transform.position, _directionToPlayer, _detectionDistance, _obstacleMask);
-        if (!_isShooting && _hit.collider.CompareTag("Player"))
+        if (_hit && !_isShooting && _hit.collider.CompareTag("Player"))
         {
             _isShooting = true;
             _animatorCannon.SetBool("isShooting", _isShooting);

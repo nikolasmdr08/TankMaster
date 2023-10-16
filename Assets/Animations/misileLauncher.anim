@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: turretEnemyIdle
+  m_Name: misileLauncher
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 723422520, guid: 58f7466263bb871478c0a8277a49f4ae, type: 3}
+      value: {fileID: 527015815, guid: 88ee60a109631114fa1378c6e85bc24c, type: 3}
+    - time: 2
+      value: {fileID: 527015815, guid: 560e79a3541c12344be67af68a2512be, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 60
+  m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -44,13 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 723422520, guid: 58f7466263bb871478c0a8277a49f4ae, type: 3}
+    - {fileID: 527015815, guid: 88ee60a109631114fa1378c6e85bc24c, type: 3}
+    - {fileID: 527015815, guid: 560e79a3541c12344be67af68a2512be, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.016666668
+    m_StopTime: 2.0833333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -69,4 +72,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: InstantiateBullet
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2
+    functionName: EndAnimation
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
