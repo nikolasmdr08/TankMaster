@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4195406758232474544}
   m_Layer: 7
   m_Name: TankEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,6 +161,8 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 8
+  _maxLife: 4
+  _DeathPrefab: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
 --- !u!61 &4195406758232474544
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MisilleController : MonoBehaviour
 {
     [SerializeField] private float _speed = 5.0f;
     [SerializeField] private LayerMask _wallLayer; 
     [SerializeField] private float _avoidDistance = 5.0f; 
-    [SerializeField] private float _raycastOffset = 2.0f;
     [SerializeField] private GameObject _bulletExplode;
     [SerializeField] private int _damage;
+    [SerializeField] private float _bufferDistance = 1.0f;
     private Transform _playerTransform;
+    private Vector3 _directionToPlayer;
+    private Vector3[] _directions = {  Vector3.up, Vector3.up + Vector3.right, Vector3.right, Vector3.down + Vector3.right,  Vector3.down, Vector3.down + Vector3.left, Vector3.left,  Vector3.up + Vector3.left };
 
     void Start()
     {
@@ -25,32 +28,44 @@ public class MisilleController : MonoBehaviour
     {
         if (_playerTransform != null)
         {
-            Vector3 _direction = (_playerTransform.position - transform.position).normalized;
-            bool _isObstacleForward = Physics.Raycast(transform.position, _direction, _avoidDistance, _wallLayer);
-            bool _isObstacleLeft = Physics.Raycast(transform.position + transform.right * -_raycastOffset, _direction, _avoidDistance, _wallLayer);
-            bool _isObstacleRight = Physics.Raycast(transform.position + transform.right * _raycastOffset, _direction, _avoidDistance, _wallLayer);
-            if (_isObstacleForward)
-            {
-                if (_isObstacleLeft && !_isObstacleRight)
-                {
-                    _direction += transform.right;
-                }
-                else if (!_isObstacleLeft && _isObstacleRight)
-                {
-                    _direction -= transform.right;
-                }
-                else if (!_isObstacleLeft && !_isObstacleRight)
-                {
-                    _direction += Random.Range(-1, 2) * transform.right;
-                }
-            }
-            transform.position += _direction.normalized * _speed * Time.deltaTime;
-            float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle-90);
+            _directionToPlayer = (_playerTransform.position - transform.position).normalized;
+            Debug.DrawRay(transform.position, _directionToPlayer * _avoidDistance, Color.green);
         }
+        else
+        {
+            _directionToPlayer = transform.position;
+        }
+
+        Vector3 _moveDirection = _directionToPlayer; // por defecto
+        bool shouldAvoidWall = false;
+
+        foreach (Vector3 dir in _directions)
+        {
+            RaycastHit2D _hit = Physics2D.Raycast(transform.position, dir, _avoidDistance + _bufferDistance, _wallLayer);
+
+            if (_hit.collider != null && _hit.distance <= _bufferDistance)
+            {
+                Vector3 _avoidDirection = Vector3.Cross(_hit.normal, Vector3.forward).normalized;
+                transform.position += _avoidDirection * _speed * Time.deltaTime;
+                _moveDirection = _avoidDirection;
+                shouldAvoidWall = true;
+                break; // Si encuentra una colisión en una de las direcciones, evita la pared y rompe el bucle.
+            }
+        }
+
+        if (!shouldAvoidWall)
+        {
+            Vector3 _newPosition = Vector3.MoveTowards(transform.position, _playerTransform.position, _speed * Time.deltaTime);
+            transform.position = _newPosition;
+            _moveDirection = _newPosition - transform.position;
+        }
+
+        float _moveAngle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0f, 0f, _moveAngle);
+        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (gameObject.tag == "PlayerBullet" && collision.gameObject.tag != "Player")
         {
@@ -68,14 +83,14 @@ public class MisilleController : MonoBehaviour
 
     }
 
-    private void CollisionResult(Collision2D collision)
+    void CollisionResult(Collision2D collision)
     {
         SubstractLife(collision, _damage);
         Instantiate(_bulletExplode, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
-    private void SubstractLife(Collision2D collision, int damage)
+    void SubstractLife(Collision2D collision, int damage)
     {
         if (collision.gameObject.tag == "Player")
         {
