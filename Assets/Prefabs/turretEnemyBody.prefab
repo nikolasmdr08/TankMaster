@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1653217812889099961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5035394046501664921}
   - component: {fileID: 3909039039140746456}
   - component: {fileID: 4805857295550394496}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: turretEnemyCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 1940318743572993942}
   - component: {fileID: 5444143700594355795}
   - component: {fileID: 8310294535208645125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: turretEnemyBody
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2831f1c234a30594aa3e73b8b12b58e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _life: {fileID: 0}
-  _maxLifePlayer: 6
+  _maxLife: 6
+  _DeathPrefab: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
 --- !u!61 &8310294535208645125
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -203,7 +203,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.21, y: 0.08, z: 0}
-  m_LocalScale: {x: 1, y: 4.8, z: 1}
+  m_LocalScale: {x: 1, y: 7.32, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -253,11 +253,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!4 &455202338 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1653217812889099961, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
-  m_PrefabInstance: {fileID: 9030128991482985028}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +537,7 @@ Transform:
   m_GameObject: {fileID: 1520681138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13999999, y: -1.8169291, z: 0}
+  m_LocalPosition: {x: -0.13999999, y: -3, z: 0}
   m_LocalScale: {x: 6.09, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -806,7 +801,7 @@ Transform:
   m_GameObject: {fileID: 1589772631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 1.9730709, z: 0}
+  m_LocalPosition: {x: -0.13, y: 3.2, z: 0}
   m_LocalScale: {x: 6.09, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -971,10 +966,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MisileLauncherBody
       objectReference: {fileID: 0}
-    - target: {fileID: 1039279752735876062, guid: 3f5294e5dcb8e974ab75c81fa943c686, type: 3}
-      propertyPath: _firePoint
-      value: 
-      objectReference: {fileID: 455202338}
     - target: {fileID: 7909194627389521332, guid: 3f5294e5dcb8e974ab75c81fa943c686, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1016,8 +1007,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2596663372591172145, guid: 3f5294e5dcb8e974ab75c81fa943c686, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f5294e5dcb8e974ab75c81fa943c686, type: 3}
@@ -1068,18 +1058,6 @@ PrefabInstance:
     - target: {fileID: 7338895310214501343, guid: 5c2016eb8d73970768d1d1334beed6c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8223399693236657961, guid: 5c2016eb8d73970768d1d1334beed6c3, type: 3}
-      propertyPath: _DeathPrefab
-      value: 
-      objectReference: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
-    - target: {fileID: 8223399693236657961, guid: 5c2016eb8d73970768d1d1334beed6c3, type: 3}
-      propertyPath: _bulletExplode
-      value: 
-      objectReference: {fileID: 547516320445673473, guid: 8efad964e3db2e541829860363468ba8, type: 3}
-    - target: {fileID: 8223399693236657961, guid: 5c2016eb8d73970768d1d1334beed6c3, type: 3}
-      propertyPath: _maxLifePlayer
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8449390614491716983, guid: 5c2016eb8d73970768d1d1334beed6c3, type: 3}
       propertyPath: m_Name
@@ -1142,10 +1120,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Targer
       objectReference: {fileID: 0}
-    - target: {fileID: 8887976237757294775, guid: 5a476a73791f2e79ca1abc5c5dafd1d3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1159,33 +1133,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 483456416207584505, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
-      propertyPath: _maxLife
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 483456416207584505, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
-      propertyPath: _DeathPrefab
-      value: 
-      objectReference: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
-    - target: {fileID: 483456416207584505, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
-      propertyPath: _maxLifePlayer
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1812573381197481104, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
       propertyPath: m_Name
       value: TankEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 1812573381197481104, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812573381197481104, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6991016276510668489, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.03
+      value: 5.96
       objectReference: {fileID: 0}
     - target: {fileID: 6991016276510668489, guid: e68f4ccb2d6232e46bf6408a522a8576, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1238,7 +1196,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2351836504424539677, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 2351836504424539677, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1276,21 +1234,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5444143700594355795, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
-      propertyPath: _maxLife
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5444143700594355795, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
-      propertyPath: _DeathPrefab
-      value: 
-      objectReference: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
     - target: {fileID: 5708798968544571606, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
       propertyPath: m_Name
       value: turretEnemyBody
       objectReference: {fileID: 0}
     - target: {fileID: 5708798968544571606, guid: 87a3428d7d6d9d449a1505fecf70ff78, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -8,7 +8,6 @@ public class BaseTurretController : MonoBehaviour
     [SerializeField] private int _maxLife;
     [SerializeField] private GameObject _DeathPrefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         _life = new LifeManager();
@@ -16,21 +15,16 @@ public class BaseTurretController : MonoBehaviour
         _life.SetCurrentLife(_maxLife);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (_life.GetCurrentLife() <= 0)
-        {
+    void Update(){
+        if (_life.GetCurrentLife() <= 0){
             Death();
         }
     }
-    public void GetDamage(int damage)
-    {
-        _life.SubtractLife(damage);
+    public void GetDamage(int _damage){
+        _life.SubtractLife(_damage);
     }
 
-    private void Death()
-    {
+    private void Death(){
         Instantiate(_DeathPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

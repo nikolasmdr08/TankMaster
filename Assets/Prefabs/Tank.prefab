@@ -307,7 +307,9 @@ MonoBehaviour:
   _rotateSpeed: 360
   _isMoving: 0
   _cannon: {fileID: 5005529478086044954}
-  _maxLifePlayer: 0
+  _DeathPrefab: {fileID: 2519364701443488168, guid: 28e173f7c3538e249a6c3b10203300bf, type: 3}
+  _maxLifePlayer: 20
+  _bulletExplode: {fileID: 547516320445673473, guid: 8efad964e3db2e541829860363468ba8, type: 3}
 --- !u!114 &6347829306771818909
 MonoBehaviour:
   m_ObjectHideFlags: 0
