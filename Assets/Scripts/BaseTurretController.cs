@@ -19,7 +19,7 @@ public class BaseTurretController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_life.GetCurrentLife() < 0)
+        if (_life.GetCurrentLife() <= 0)
         {
             Death();
         }

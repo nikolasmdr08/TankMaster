@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(_lifePlayer.GetCurrentLife() < 0)
+        if(_lifePlayer.GetCurrentLife() <= 0)
         {
             Death();
         }
@@ -84,5 +84,10 @@ public class PlayerController : MonoBehaviour
     public void GetDamage(int damage)
     {
         _lifePlayer.SubtractLife(damage);
+    }
+
+    public int GetCurrentLife()
+    {
+        return _lifePlayer.GetCurrentLife();
     }
 }

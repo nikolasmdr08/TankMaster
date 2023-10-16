@@ -36,7 +36,7 @@ public class TankEnemyController : MonoBehaviour
     void Update()
     {
         Debug.Log("enemyActualLife: " + _life.GetCurrentLife());
-        if (_life.GetCurrentLife() < 0)
+        if (_life.GetCurrentLife() <= 0)
         {
             Death();
         }

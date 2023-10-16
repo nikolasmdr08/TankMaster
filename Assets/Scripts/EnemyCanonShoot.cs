@@ -46,7 +46,10 @@ public class EnemyCannonController : MonoBehaviour
 
     public void InstantiateBullet()
     {
-        Instantiate(_prefabBullet, _firePoint.position, Quaternion.Euler(0, 0, -90));
+        if (_playerController != null)
+        {
+            Instantiate(_prefabBullet, _firePoint.position, _firePoint.rotation);
+        }
     }
 
 

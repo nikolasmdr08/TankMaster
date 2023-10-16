@@ -19,7 +19,7 @@ public class CommonBullet : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerController = GameObject.FindGameObjectWithTag(_target);
-        _playerPosition = _playerController.transform;
+        if(_playerController != null ) _playerPosition = _playerController.transform;
         _direction = _playerPosition.position - transform.position;
     }
 
