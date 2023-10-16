@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private Animator _animatorCannon;
     private LifeManager _lifePlayer;
-
-
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private bool _isMoving;
@@ -22,8 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int _maxLifePlayer;
     [SerializeField] private GameObject _bulletExplode;
 
-    void Start()
-    {
+    void Start(){
         _rb = GetComponent<Rigidbody2D>();
         _pInput = GetComponent<PlayerInput>();
         _animator = GetComponent<Animator>();
@@ -33,10 +30,8 @@ public class PlayerController : MonoBehaviour
         _lifePlayer.SetCurrentLife(_maxLifePlayer); 
     }
 
-    void Update()
-    {
-        if(_lifePlayer.GetCurrentLife() <= 0)
-        {
+    void Update(){
+        if(_lifePlayer.GetCurrentLife() <= 0){
             Death();
         }
         _input = _pInput.actions["Move"].ReadValue<Vector2>();
@@ -45,49 +40,40 @@ public class PlayerController : MonoBehaviour
         AnimationController(_animator, "isMoving", _isMoving);
     }
 
-    private void Death()
-    {
+    private void Death(){
         Instantiate(_DeathPrefab,transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
-    private void AnimationController(Animator animation,string id, bool isMoving)
-    {
-        animation.SetBool(id, isMoving);
+    private void AnimationController(Animator _animation,string _id, bool _isMoving){
+        _animation.SetBool(_id, _isMoving);
     }
 
-    private void PlayerMove(Vector2 movement)
-    {
-        movement.Normalize(); //normalizo para evitar un 1,1 
-        _rb.velocity = movement * _moveSpeed;
-        if (movement.magnitude > 0)
-        {
-            float targetRotation = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+    private void PlayerMove(Vector2 _movement){
+        _movement.Normalize(); //normalizo para evitar un 1,1 
+        _rb.velocity = _movement * _moveSpeed;
+        if (_movement.magnitude > 0){
+            float targetRotation = Mathf.Atan2(_movement.y, _movement.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, targetRotation-90), _rotateSpeed * Time.deltaTime); // resto 90 grados por rotacion del sprite
         }
     }
 
-    public void PlayerShoot(InputAction.CallbackContext callbackContext)
-    {
-        if (callbackContext.performed)
-        {
+    public void PlayerShoot(InputAction.CallbackContext _callbackContext){
+        if (_callbackContext.performed){
             AnimationController(_animatorCannon, "isShooting", true);
         }
         
     }
 
-    public void EndAnimationShoot()
-    {
+    public void EndAnimationShoot(){
         AnimationController(_animatorCannon, "isShooting", false);
     }
 
-    public void GetDamage(int damage)
-    {
-        _lifePlayer.SubtractLife(damage);
+    public void GetDamage(int _damage) {
+        _lifePlayer.SubtractLife(_damage);
     }
 
-    public int GetCurrentLife()
-    {
+    public int GetCurrentLife(){
         return _lifePlayer.GetCurrentLife();
     }
 }

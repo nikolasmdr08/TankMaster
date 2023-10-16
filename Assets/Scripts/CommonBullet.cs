@@ -9,7 +9,6 @@ public class CommonBullet : MonoBehaviour
     private GameObject _playerController;
     private Transform _playerPosition;
     private Vector2 _direction;
-
     [SerializeField] private float _moveSpeed;
     [SerializeField] private string _target;
     [SerializeField] private int _damage;
@@ -19,62 +18,48 @@ public class CommonBullet : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerController = GameObject.FindGameObjectWithTag(_target);
-        if (_playerController != null)
-        {
+        if (_playerController != null){
             _playerPosition = _playerController.transform;
             _direction = _playerPosition.position - transform.position;
         }
     }
 
-    void Update()
-    {
+    void Update(){
         _rb.velocity = _direction.normalized * _moveSpeed;
     }
 
-    public int GetDamage()
-    {
+    public int GetDamage(){
         return _damage;
-    }
+    } 
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (gameObject.tag == "PlayerBullet" && collision.gameObject.tag != "Player")
-        {
-            if (collision.gameObject.tag == "Enemy") CollisionResult(collision);
+    private void OnCollisionEnter2D(Collision2D _collision){
+        if (gameObject.tag == "PlayerBullet" && _collision.gameObject.tag != "Player"){
+            if (_collision.gameObject.tag == "Enemy") CollisionResult(_collision);
         }
-        if (gameObject.tag == "EnemyBullet" && collision.gameObject.tag != "Enemy")
-        {
-            if (collision.gameObject.tag == "Player") CollisionResult(collision);
+        if (gameObject.tag == "EnemyBullet" && _collision.gameObject.tag != "Enemy"){
+            if (_collision.gameObject.tag == "Player") CollisionResult(_collision);
         }
-        if(collision.gameObject.tag == "Wall")
-        {
+        if(_collision.gameObject.tag == "Wall"){
             Instantiate(_bulletExplode, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
-        }
-             
+        }    
     }
 
-    private void CollisionResult(Collision2D collision)
-    {
-        SubstractLife(collision, _damage);
+    private void CollisionResult(Collision2D _collision){
+        SubstractLife(_collision, _damage);
         Instantiate(_bulletExplode, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
-    private void SubstractLife(Collision2D collision, int damage)
+    private void SubstractLife(Collision2D _collision, int _damage)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerController>().GetDamage(damage);
-        }
+        if (_collision.gameObject.tag == "Player") _collision.gameObject.GetComponent<PlayerController>().GetDamage(_damage);
      
-        if (collision.gameObject.tag == "Enemy") { 
-            if(collision.gameObject.GetComponent<TankEnemyController>() != null)
-                collision.gameObject.GetComponent<TankEnemyController>().GetDamage(damage);
-            if (collision.gameObject.GetComponent<BaseTurretController>() != null)
-                collision.gameObject.GetComponent<BaseTurretController>().GetDamage(damage);
+        if (_collision.gameObject.tag == "Enemy") { 
+            if(_collision.gameObject.GetComponent<TankEnemyController>() != null)
+                _collision.gameObject.GetComponent<TankEnemyController>().GetDamage(_damage);
+            if (_collision.gameObject.GetComponent<BaseTurretController>() != null)
+                _collision.gameObject.GetComponent<BaseTurretController>().GetDamage(_damage);
         }
-        Debug.Log(collision.gameObject.tag + ": " + damage);
     }
 }

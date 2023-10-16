@@ -7,49 +7,38 @@ public class LifeManager : MonoBehaviour
     [SerializeField] private int maxLife; 
     private int currentLife;
 
-    private void Start()
-    {
+    private void Start(){
         currentLife = maxLife;
     }
 
-    public void AddLife(int points)
-    {
+    public void AddLife(int points){
         currentLife += points;
         if (currentLife > maxLife){
             currentLife = maxLife;
         }
-        Debug.Log("Life added. Current life: " + currentLife);
     }
 
-    public void SubtractLife(int points)
-    {
+    public void SubtractLife(int points){
         currentLife -= points;
         if (currentLife < 0){
             currentLife = 0;
         }
     }
 
-    public int GetCurrentLife()
-    {
+    public int GetCurrentLife(){
         return currentLife;
     }
 
-    public void SetMaxLife(int value) // si preciso cambiar el valor maximo en tiempo de ejecucion
-    {
+    public void SetMaxLife(int value){
         maxLife = value;
-        if (currentLife > maxLife)
-        {
-            currentLife = maxLife;
-        }
+        if (currentLife > maxLife) currentLife = maxLife;      
     }
 
-    public void SetCurrentLife(int value) // si preciso cambiar el valor maximo en tiempo de ejecucion
-    {
+    public void SetCurrentLife(int value){
         currentLife = value;
     }
 
-    public int GetMaxLife()
-    {
+    public int GetMaxLife(){
         return maxLife;
     }
 }
