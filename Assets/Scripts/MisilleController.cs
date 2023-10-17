@@ -42,7 +42,7 @@ public class MisilleController : MonoBehaviour
                 break; // Si encuentra una colisión en una de las direcciones, evita la pared y rompe el bucle.
             }
         }
-        if (!_shouldAvoidWall){
+        if (_playerTransform != null && !_shouldAvoidWall){
             Vector3 _newPosition = Vector3.MoveTowards(transform.position, _playerTransform.position, _speed * Time.deltaTime);
             transform.position = _newPosition;
             _moveDirection = _newPosition - transform.position;

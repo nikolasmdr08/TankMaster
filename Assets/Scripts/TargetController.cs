@@ -6,8 +6,14 @@ public class TargetController : MonoBehaviour
 {
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f;
-        transform.position = mousePosition;
+        Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distanceToGround = 1000f; // Puedes ajustar esto según tus necesidades
+        Plane _groundPlane = new Plane(Vector3.forward, Vector3.zero); // Plano XY en la posición Z=0
+
+        if (_groundPlane.Raycast(_ray, out distanceToGround))
+        {
+            Vector3 _hitPoint = _ray.GetPoint(distanceToGround);
+            transform.position = _hitPoint;
+        }
     }
 }
