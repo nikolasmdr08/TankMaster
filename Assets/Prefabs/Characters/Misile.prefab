@@ -5022,7 +5022,7 @@ MonoBehaviour:
   _avoidDistance: 1
   _bulletExplode: {fileID: 233885430918196183, guid: 1230500f4378bfd328b69fd712a8a9f8, type: 3}
   _damage: 3
-  _bufferDistance: 1
+  _bufferDistance: 0.5
 --- !u!212 &-8861902127823835303
 SpriteRenderer:
   m_ObjectHideFlags: 0
