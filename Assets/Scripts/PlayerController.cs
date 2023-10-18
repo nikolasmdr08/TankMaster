@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInput _pInput;
     private Vector2 _input;
     private Animator _animator;
-    private Animator _animatorCannon;
     private LifeManager _lifePlayer;
+    [SerializeField] private Animator _animatorCannon;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private bool _isMoving;
