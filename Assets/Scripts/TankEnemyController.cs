@@ -11,16 +11,21 @@ public class TankEnemyController : MonoBehaviour
     [SerializeField] private TankState _currentState;
     [SerializeField] private float _detectionDistance = 10f;
     [SerializeField] private float _shootDistance = 2f;
-    [SerializeField] private float _rayLength = 3f;
     [SerializeField] private float _patrolSpeed = 3f;
     [SerializeField] private float _followSpeed = 5f;
     [SerializeField] private LayerMask _obstacleMask;
     [SerializeField] private int _maxLife;
     [SerializeField] private GameObject _DeathPrefab;
+    //[SerializeField] private float _avoidDistance = 5.0f;
+    //[SerializeField] private float _rayLength = 3f;
+    [SerializeField] private float _bufferDistance = .5f;
     private GameObject _playerGameObject;
     private Transform _player;
     private Vector2 _patrolTarget;
     private LifeManager _life;
+    private Vector3 _directionToPlayer;
+    private Vector3[] _directions = { Vector3.up, Vector3.up + Vector3.right, Vector3.right, Vector3.down + Vector3.right, Vector3.down, Vector3.down + Vector3.left, Vector3.left, Vector3.up + Vector3.left };
+
 
     void Start(){
         _currentState = TankState.Patrolling;
@@ -67,7 +72,7 @@ public class TankEnemyController : MonoBehaviour
     }
 
     void FollowPlayer(){
-        Vector3 _directionToPlayer = (_player.position - transform.position).normalized;
+        /*Vector3 _directionToPlayer = (_player.position - transform.position).normalized;
         Debug.DrawRay(transform.position, _directionToPlayer * _rayLength, Color.green);
         RaycastHit2D _hit = Physics2D.Raycast(transform.position, _directionToPlayer, _rayLength, _obstacleMask);
         Vector3 _moveDirection;  
@@ -80,6 +85,39 @@ public class TankEnemyController : MonoBehaviour
             Vector3 _newPosition = Vector3.MoveTowards(transform.position, _player.position, _followSpeed * Time.deltaTime);
             transform.position = _newPosition;
             _moveDirection = _newPosition - transform.position;  
+        }
+        float _moveAngle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0f, 0f, _moveAngle);*/
+
+        if (_player != null)
+        {
+            _directionToPlayer = (_player.position - transform.position).normalized;
+            Debug.DrawRay(transform.position, _directionToPlayer * _detectionDistance, Color.green);
+        }
+        else
+        {
+            _directionToPlayer = transform.position;
+        }
+        Vector3 _moveDirection = _directionToPlayer; // por defecto
+        bool _shouldAvoidWall = false;
+        foreach (Vector3 _dir in _directions)
+        {
+            RaycastHit2D _hit = Physics2D.Raycast(transform.position, _dir, _detectionDistance + _bufferDistance, _obstacleMask);
+
+            if (_hit.collider != null && _hit.distance <= _bufferDistance)
+            {
+                Vector3 _avoidDirection = Vector3.Cross(_hit.normal, Vector3.forward).normalized;
+                transform.position += _avoidDirection * _followSpeed * Time.deltaTime;
+                _moveDirection = _avoidDirection;
+                _shouldAvoidWall = true;
+                break; // Si encuentra una colisión en una de las direcciones, evita la pared y rompe el bucle.
+            }
+        }
+        if (_player != null && !_shouldAvoidWall)
+        {
+            Vector3 _newPosition = Vector3.MoveTowards(transform.position, _player.position, _followSpeed * Time.deltaTime);
+            transform.position = _newPosition;
+            _moveDirection = _newPosition - transform.position;
         }
         float _moveAngle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0f, 0f, _moveAngle);
