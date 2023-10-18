@@ -28,11 +28,17 @@ public class TurretController : MonoBehaviour
         Instantiate(_prefabBullet, _firePoint.position, transform.rotation); 
     }
 
-    private void RotateToMouse() { 
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f;
-        Vector3 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle-90);
+    private void RotateToMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distanceToGround;
+        Plane groundPlane = new Plane(Vector3.forward, Vector3.zero);
+        if (groundPlane.Raycast(ray, out distanceToGround))
+        {
+            Vector3 hitPoint = ray.GetPoint(distanceToGround);
+            Vector3 direction = hitPoint - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        }
     }
 }

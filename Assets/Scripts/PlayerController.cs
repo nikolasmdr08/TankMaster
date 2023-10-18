@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInput _pInput;
     private Vector2 _input;
     private Animator _animator;
-    private Animator _animatorCannon;
     private LifeManager _lifePlayer;
+    [SerializeField] private Animator _animatorCannon;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private bool _isMoving;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _DeathPrefab;
     [SerializeField] private int _maxLifePlayer;
     [SerializeField] private GameObject _bulletExplode;
+    [SerializeField] private HealthBarController _healthBarController;
 
     void Start(){
         _rb = GetComponent<Rigidbody2D>();
@@ -70,7 +71,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void GetDamage(int _damage) {
+        float _previousLifePoints = GetCurrentLife();
         _lifePlayer.SubtractLife(_damage);
+        _healthBarController.UpdateHealthBar(_lifePlayer.GetMaxLife(), GetCurrentLife(), _previousLifePoints);
     }
 
     public int GetCurrentLife(){
