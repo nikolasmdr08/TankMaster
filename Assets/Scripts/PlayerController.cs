@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int _maxLifePlayer;
     [SerializeField] private GameObject _bulletExplode;
     [SerializeField] private HealthBarController _healthBarController;
+    [SerializeField] private GameObject _targetObject;
+    [SerializeField] private Camera mainCamera;
+
+    private Vector3 worldBottomLeft;
+    private Vector3 worldTopRight;
 
     void Start(){
         _rb = GetComponent<Rigidbody2D>();
@@ -28,7 +33,15 @@ public class PlayerController : MonoBehaviour
         _animatorCannon = _cannon.GetComponent<Animator>();
         _lifePlayer = new LifeManager();
         _lifePlayer.SetMaxLife(_maxLifePlayer); 
-        _lifePlayer.SetCurrentLife(_maxLifePlayer); 
+        _lifePlayer.SetCurrentLife(_maxLifePlayer);
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+        worldBottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        worldTopRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.nearClipPlane));
+        worldBottomLeft.z = 0;
+        worldTopRight.z = 0;
     }
 
     void Update(){
@@ -39,6 +52,45 @@ public class PlayerController : MonoBehaviour
         PlayerMove(_input);
         _isMoving = (_input.magnitude > 0);
         AnimationController(_animator, "isMoving", _isMoving);
+
+        Vector2 mousePosition = new Vector2();
+        Vector2 gamepadPosition = new Vector2();
+
+        var mouse = Mouse.current;
+        if (mouse != null)
+            mousePosition = mouse.position.ReadValue();
+
+        var gamepad = Gamepad.current;
+        if (gamepad != null)
+            gamepadPosition = gamepad.rightStick.ReadValue();
+
+        if(gamepadPosition != Vector2.zero)
+        {
+            Debug.Log("gamepad: " + gamepadPosition.ToString());
+            MoveTargetWithStickPosition(gamepadPosition);
+        }
+        else
+        {
+            Debug.Log("mousePosition: " + mousePosition.ToString());
+            MoveTargetWithMousePosition(mousePosition);
+        }
+    }
+
+    private void MoveTargetWithStickPosition(Vector2 gamepadPosition)
+    {
+        Vector3 targetWorldPosition = new Vector3(
+            Mathf.Lerp(transform.position.x + worldBottomLeft.x, transform.position.x + worldTopRight.x, (gamepadPosition.x + 1) * 0.5f),
+            Mathf.Lerp(transform.position.y + worldBottomLeft.y, transform.position.y + worldTopRight.y, (gamepadPosition.y + 1) * 0.5f),
+            0
+        );
+        _targetObject.transform.position = targetWorldPosition;
+    }
+
+    private void MoveTargetWithMousePosition(Vector2 mousePosition)
+    {
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, mainCamera.nearClipPlane));
+        worldPosition.z = 0;
+        _targetObject.transform.position = worldPosition;
     }
 
     private void Death(){

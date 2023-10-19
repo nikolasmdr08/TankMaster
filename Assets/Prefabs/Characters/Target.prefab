@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6236259493920639425}
   - component: {fileID: 5522292824113131334}
   m_Layer: 0
-  m_Name: Targer
+  m_Name: Target
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

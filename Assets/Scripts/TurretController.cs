@@ -6,6 +6,7 @@ public class TurretController : MonoBehaviour
 {
     private PlayerController _playerController;
     [SerializeField] private GameObject _prefabBullet;
+    [SerializeField] private GameObject _target;
     [SerializeField] private Transform _firePoint;
 
     void Start()
@@ -15,7 +16,7 @@ public class TurretController : MonoBehaviour
 
     void Update()
     {
-        RotateToMouse();
+        RotateToTarget();
     }
 
     public void EndAnimation()
@@ -28,17 +29,14 @@ public class TurretController : MonoBehaviour
         Instantiate(_prefabBullet, _firePoint.position, transform.rotation); 
     }
 
-    private void RotateToMouse()
+    private void RotateToTarget()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distanceToGround;
-        Plane groundPlane = new Plane(Vector3.forward, Vector3.zero);
-        if (groundPlane.Raycast(ray, out distanceToGround))
-        {
-            Vector3 hitPoint = ray.GetPoint(distanceToGround);
-            Vector3 direction = hitPoint - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-        }
+        if (_target == null) return;
+
+        Vector3 direction = _target.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
     }
 }

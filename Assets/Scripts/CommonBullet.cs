@@ -34,7 +34,14 @@ public class CommonBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D _collision){
         if (gameObject.tag == "PlayerBullet" && _collision.gameObject.tag != "Player"){
-            if (_collision.gameObject.tag == "Enemy") CollisionResult(_collision);
+            if (_collision.gameObject.tag == "Enemy") 
+                CollisionResult(_collision);
+            if (_collision.gameObject.tag == "EnemyBullet")
+            {
+                Instantiate(_bulletExplode, transform.position, Quaternion.identity);
+                Destroy(_collision.gameObject);
+                Destroy(this.gameObject);
+            }
         }
         if (gameObject.tag == "EnemyBullet" && _collision.gameObject.tag != "Enemy"){
             if (_collision.gameObject.tag == "Player") CollisionResult(_collision);
