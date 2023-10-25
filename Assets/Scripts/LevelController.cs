@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using TMPro.Examples;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+
 
 public class LevelController : MonoBehaviour
 {
