@@ -7,7 +7,7 @@ public class LevelMenuController : MonoBehaviour
 {
     public void GoToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene(0);
     }
 
     public void ResetLevel()

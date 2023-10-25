@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _gameWin;
-    [SerializeField] private GameObject _gameLose;
-
+    [SerializeField] private GameObject _gameLose; 
+    [SerializeField] private TMP_Text _targetText;
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -25,6 +26,8 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        GameObject[] _actualEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        _targetText.text = "Objetivos: " + _actualEnemyObjects.Length  + " / " + _enemies.Length;
         // Verificar si el jugador ha muerto
         if (_player == null)
         {
