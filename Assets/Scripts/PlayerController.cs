@@ -65,17 +65,10 @@ public class PlayerController : MonoBehaviour
             gamepadPosition = gamepad.rightStick.ReadValue();
 
         if(gamepadPosition != Vector2.zero)
-        {
-            Debug.Log("gamepad: " + gamepadPosition.ToString());
             MoveTargetWithStickPosition(gamepadPosition);
-        }
         else
-        {
-            Debug.Log("mousePosition: " + mousePosition.ToString());
             MoveTargetWithMousePosition(mousePosition);
-        }
     }
-
     private void MoveTargetWithStickPosition(Vector2 gamepadPosition)
     {
         Vector3 targetWorldPosition = new Vector3(
@@ -85,7 +78,6 @@ public class PlayerController : MonoBehaviour
         );
         _targetObject.transform.position = targetWorldPosition;
     }
-
     private void MoveTargetWithMousePosition(Vector2 mousePosition)
     {
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, mainCamera.nearClipPlane));
