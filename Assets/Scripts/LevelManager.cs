@@ -26,8 +26,10 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        //TODO: TP2 - Optimization - Cache values/refs
         GameObject[] _actualEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
         _targetText.text = "Objetivos: " + _actualEnemyObjects.Length  + " / " + _enemies.Length;
+        //TODO: TP2 - Spelling error/Code in spanish/Code in spanglish
         // Verificar si el jugador ha muerto
         if (_player == null)
         {
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            //TODO: TP2 - Spelling error/Code in spanish/Code in spanglish
             // Verificar si no quedan enemigos en la escena
             bool allEnemiesDead = true;
 

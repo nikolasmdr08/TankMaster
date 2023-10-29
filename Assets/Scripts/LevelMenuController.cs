@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelMenuController : MonoBehaviour
 {
+    //TODO: TP2 - Fix - Not set in scene
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);

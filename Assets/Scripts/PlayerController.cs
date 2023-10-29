@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
         if(_lifePlayer.GetCurrentLife() <= 0){
             Death();
         }
+        
+        //TODO: TP1 - Reading input in Update
         _input = _pInput.actions["Move"].ReadValue<Vector2>();
         PlayerMove(_input);
         _isMoving = (_input.magnitude > 0);
@@ -95,6 +97,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void PlayerMove(Vector2 _movement){
+        //TODO: TP2 - Spelling error/Code in spanish/Code in spanglish
+        //That's not what normalize means.
         _movement.Normalize(); //normalizo para evitar un 1,1 
         _rb.velocity = _movement * _moveSpeed;
         if (_movement.magnitude > 0){
