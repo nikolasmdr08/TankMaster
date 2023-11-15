@@ -10,6 +10,7 @@ public class TitleMenuController : MonoBehaviour
 
     public void PlayGame()
     {
+        //TODO: TP2 - Fix - Hardcoded value/s
         SceneManager.LoadScene("Level1");
     }
     public void ExitGame()

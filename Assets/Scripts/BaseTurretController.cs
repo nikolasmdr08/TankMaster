@@ -8,6 +8,7 @@ public class BaseTurretController : MonoBehaviour
     [SerializeField] private int _maxLife;
     [SerializeField] private GameObject _DeathPrefab;
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     void Start()
     {
         _life = new LifeManager();
@@ -16,6 +17,7 @@ public class BaseTurretController : MonoBehaviour
     }
 
     void Update(){
+        //TODO: TP2 - Optimization - Should be event based
         if (_life.GetCurrentLife() <= 0){
             Death();
         }

@@ -35,6 +35,7 @@ public class EnemyCannonController : MonoBehaviour
         _animatorCannon.SetBool("isShooting", _isShooting);
     }
 
+    //TODO: TP2 - Fix - Calling these methods from animation events makes the logic really hard to follow and prevent the game designers from making changes to shoot times and other variables
     public void InstantiateBullet(){
         if (_playerController != null){
             Instantiate(_prefabBullet, _firePoint.position, _firePoint.rotation);

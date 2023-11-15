@@ -33,6 +33,7 @@ public class CommonBullet : MonoBehaviour
     } 
 
     private void OnCollisionEnter2D(Collision2D _collision){
+        //TODO: TP2 - Fix - Hardcoded value/s
         if (gameObject.tag == "PlayerBullet" && _collision.gameObject.tag != "Player"){
             if (_collision.gameObject.tag == "Enemy") 
                 CollisionResult(_collision);
@@ -63,6 +64,7 @@ public class CommonBullet : MonoBehaviour
         if (_collision.gameObject.tag == "Player") _collision.gameObject.GetComponent<PlayerController>().GetDamage(_damage);
      
         if (_collision.gameObject.tag == "Enemy") { 
+            //TODO: TP2 - Optimization - TryGetComponent
             if(_collision.gameObject.GetComponent<TankEnemyController>() != null)
                 _collision.gameObject.GetComponent<TankEnemyController>().GetDamage(_damage);
             if (_collision.gameObject.GetComponent<BaseTurretController>() != null)

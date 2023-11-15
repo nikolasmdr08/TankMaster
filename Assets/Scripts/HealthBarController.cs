@@ -9,6 +9,7 @@ public class HealthBarController : MonoBehaviour
     [SerializeField] private Image _redBarImage;
     public void UpdateHealthBar(float _maxHealth, float _health, float _previousLifePoints)
     {
+        //TODO: TP2 - Fix - Unclear logic
         _greenBarImage.fillAmount = (float) _health/_maxHealth;
 
         float _targetHealth = _health/_maxHealth;
